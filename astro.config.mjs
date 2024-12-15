@@ -12,9 +12,11 @@ export default defineConfig({
     mdx(),
     sitemap(),
     sanity({
-      projectId: "jrbn2020",
+      projectId: "your-project-id",
       dataset: "production",
+      studioBasePath: "/admin",
       useCdn: false,
+      apiVersion: "2024-02-20",
     }),
   ],
 });
