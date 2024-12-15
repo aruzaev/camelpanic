@@ -9,7 +9,7 @@ import sanity from "@sanity/astro";
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.example.com",
-  output: "server",
+  output: "static",
   adapter: vercel(),
   integrations: [
     mdx(),
