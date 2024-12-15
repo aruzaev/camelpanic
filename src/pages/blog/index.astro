@@ -4,24 +4,26 @@ export const prerender = false;
 import type { SanityDocument } from "@sanity/client";
 import { sanityClient } from "sanity:client";
 import BaseHead from '../../components/BaseHead.astro';
-import { useLiveQuery } from "@sanity/astro";
 
 const POSTS_QUERY = `*[
   _type == "post"
   && defined(slug.current)
 ]|order(publishedAt desc)[0...12]{_id, title, slug, publishedAt}`;
 
-const posts = await useLiveQuery(POSTS_QUERY);
+const posts = await sanityClient.fetch(POSTS_QUERY);
 ---
 
 <html>
   <head>
     <BaseHead title="Blog" description="Latest posts" />
     <script>
-      // Enable live updates
-      window.addEventListener('astro:sanity:change', () => {
-        window.location.reload();
-      });
+      // Set up event source for real-time updates
+      const eventSource = new EventSource('/api/sanity-changes');
+      eventSource.onmessage = (event) => {
+        if (event.data.includes('post')) {
+          window.location.reload();
+        }
+      };
     </script>
   </head>
   <body>

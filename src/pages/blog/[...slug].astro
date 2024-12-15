@@ -7,10 +7,9 @@ import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { PortableText } from "astro-portabletext";
 import BaseHead from '../../components/BaseHead.astro';
-import { useLiveQuery } from "@sanity/astro";
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
-const post = await useLiveQuery(POST_QUERY, Astro.params);
+const post = await sanityClient.fetch(POST_QUERY, Astro.params);
 
 export async function getStaticPaths() {
   const SLUGS_QUERY = `*[_type == "post" && defined(slug.current)]{
@@ -32,6 +31,14 @@ const postImageUrl = post.image
 <html>
   <head>
     <BaseHead title={post.title} description={post.excerpt} />
+    <script>
+      const eventSource = new EventSource('/api/sanity-changes');
+      eventSource.onmessage = (event) => {
+        if (event.data.includes('post')) {
+          window.location.reload();
+        }
+      };
+    </script>
   </head>
   <body>
     <main class="container mx-auto p-8">
