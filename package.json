@@ -12,6 +12,7 @@
     "@astrojs/mdx": "^4.0.2",
     "@astrojs/rss": "^4.0.10",
     "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/vercel": "^8.0.1",
     "@sanity/astro": "^3.1.8",
     "@sanity/client": "^6.24.1",
     "@sanity/visual-editing": "^2.10.7",
