@@ -9,7 +9,7 @@ import sanity from "@sanity/astro";
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.camelpanic.com",
-  output: "static",
+  output: "server",
   adapter: vercel(),
   integrations: [
     mdx(),
@@ -18,7 +18,9 @@ export default defineConfig({
       projectId: "jrbn2020",
       dataset: "production",
       studioBasePath: "/admin",
-      useCdn: true,
+      useCdn: false,
+      apiVersion: "2024-02-20",
+      perspective: "published",
     }),
   ],
 });

@@ -1,13 +1,16 @@
 ---
+export const prerender = false;
+
 import type { SanityDocument } from "@sanity/client";
 import { sanityClient } from "sanity:client";
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { PortableText } from "astro-portabletext";
 import BaseHead from '../../components/BaseHead.astro';
+import { useLiveQuery } from "@sanity/astro";
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
-const post = await sanityClient.fetch<SanityDocument>(POST_QUERY, Astro.params);
+const post = await useLiveQuery(POST_QUERY, Astro.params);
 
 export async function getStaticPaths() {
   const SLUGS_QUERY = `*[_type == "post" && defined(slug.current)]{
