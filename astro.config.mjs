@@ -15,7 +15,7 @@ export default defineConfig({
       projectId: "your-project-id",
       dataset: "production",
       studioBasePath: "/admin",
-      useCdn: false,
+      useCdn: true,
       apiVersion: "2024-02-20",
     }),
   ],

@@ -2,14 +2,13 @@
 import type { SanityDocument } from "@sanity/client";
 import { sanityClient } from "sanity:client";
 import BaseHead from '../../components/BaseHead.astro';
-import { useLiveQuery } from "@sanity/astro";
 
 const POSTS_QUERY = `*[
   _type == "post"
   && defined(slug.current)
 ]|order(publishedAt desc)[0...12]{_id, title, slug, publishedAt}`;
 
-const posts = await useLiveQuery(POSTS_QUERY);
+const posts = await sanityClient.fetch(POSTS_QUERY);
 ---
 
 <html>
