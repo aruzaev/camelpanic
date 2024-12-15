@@ -12,39 +12,102 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+		<main class="container mx-auto p-8">
+			<div class="terminal-container max-w-3xl mx-auto">
+				<div class="terminal-header">
+					<span class="terminal-title">~/home</span>
+				</div>
+				<div class="terminal-content">
+					<div class="command-line">
+						<span class="prompt">$</span>
+						<span class="command">whoami</span>
+					</div>
+					<div class="output mb-8">
+						<h1 class="text-2xl font-bold mb-4">Hey, I'm Artem 👋</h1>
+						<p class="mb-4">
+							I'm a 21-year-old computer programming student based in Toronto, Canada. 
+							This is my digital garden where I share my thoughts on everything from programming 
+							and technology to life lessons and personal experiences.
+						</p>
+						<p>
+							Think of this space as a collection of musings, discoveries, and learnings 
+							as I navigate through the world of software development and life in general.
+						</p>
+					</div>
+
+					<div class="command-line">
+						<span class="prompt">$</span>
+						<span class="command">ls -la ./links</span>
+					</div>
+					<div class="output">
+						<ul class="link-list">
+							<li>
+								<span class="date">drwxr-xr-x</span>
+								<a href="/blog" class="filename">blog/</a>
+								<span class="description">- My thoughts and experiences</span>
+							</li>
+							<li>
+								<span class="date">drwxr-xr-x</span>
+								<a href="https://your-portfolio-url.com" class="filename">portfolio/</a>
+								<span class="description">- My projects and work</span>
+							</li>
+							<li>
+								<span class="date">drwxr-xr-x</span>
+								<a href="https://github.com/yourusername" class="filename">github/</a>
+								<span class="description">- My code and contributions</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.mb-4 {
+		margin-bottom: 1rem;
+	}
+
+	.mb-8 {
+		margin-bottom: 2rem;
+	}
+
+	.text-2xl {
+		font-size: 1.5rem;
+	}
+
+	.font-bold {
+		font-weight: 700;
+	}
+
+	.link-list {
+		list-style: none;
+		padding: 0;
+	}
+
+	.link-list li {
+		display: flex;
+		gap: 1rem;
+		padding: 0.25rem 0;
+		align-items: center;
+	}
+
+	.date {
+		color: var(--secondary);
+		font-size: 0.9rem;
+	}
+
+	.description {
+		color: var(--secondary);
+	}
+
+	.command-line {
+		margin: 1rem 0;
+	}
+
+	.output {
+		padding-left: 1rem;
+	}
+</style>

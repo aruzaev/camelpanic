@@ -1,21 +1,113 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
-import { render } from 'astro:content';
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
+import imageUrlBuilder from "@sanity/image-url";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { PortableText } from "astro-portabletext";
+import BaseHead from '../../components/BaseHead.astro';
+
+const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
+const post = await sanityClient.fetch<SanityDocument>(POST_QUERY, Astro.params);
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+  const SLUGS_QUERY = `*[_type == "post" && defined(slug.current)]{
+    "params": {"slug": slug.current}
+  }`;
+  return await sanityClient.fetch(SLUGS_QUERY, Astro.params);
 }
-type Props = CollectionEntry<'blog'>;
 
-const post = Astro.props;
-const { Content } = await render(post);
+const { projectId, dataset } = sanityClient.config();
+const urlFor = (source: SanityImageSource) =>
+  projectId && dataset
+    ? imageUrlBuilder({ projectId, dataset }).image(source)
+    : null;
+const postImageUrl = post.image
+  ? urlFor(post.image)?.width(550).height(310).url()
+  : null;
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<html>
+  <head>
+    <BaseHead title={post.title} description={post.excerpt} />
+  </head>
+  <body>
+    <main class="container mx-auto p-8">
+      <div class="terminal-container max-w-3xl mx-auto">
+        <div class="terminal-header">
+          <span class="terminal-title">~/blog/{post.slug.current}</span>
+        </div>
+        <div class="terminal-content">
+          <div class="command-line">
+            <span class="prompt">$</span>
+            <span class="command">cat {post.slug.current}.md</span>
+          </div>
+          <div class="metadata">
+            <span class="date">Published: {new Date(post.publishedAt).toLocaleDateString()}</span>
+          </div>
+          <div class="content prose">
+            <h1>{post.title}</h1>
+            {postImageUrl && (
+              <img
+                src={postImageUrl}
+                alt={post.title}
+                class="rounded-lg"
+                width="550"
+                height="310"
+              />
+            )}
+            {Array.isArray(post.body) && <PortableText value={post.body} />}
+          </div>
+          <div class="command-line mt-8">
+            <span class="prompt">$</span>
+            <a href="/blog" class="command">cd ..</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  .metadata {
+    border-bottom: 1px dashed var(--secondary);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    color: var(--secondary);
+  }
+
+  .command-line {
+    margin: 1rem 0;
+  }
+
+  .prompt {
+    color: var(--accent);
+    margin-right: 0.5rem;
+  }
+
+  .command {
+    color: var(--link);
+  }
+
+  .content {
+    margin: 2rem 0;
+    line-height: 1.8;
+  }
+
+  .content h1 {
+    color: var(--accent);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content img {
+    margin: 2rem 0;
+  }
+
+  .prose {
+    max-width: none;
+  }
+
+  .prose p {
+    margin: 1.5rem 0;
+  }
+</style>
