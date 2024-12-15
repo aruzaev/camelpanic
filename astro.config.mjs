@@ -8,18 +8,17 @@ import sanity from "@sanity/astro";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://www.example.com",
+  site: "https://www.camelpanic.com",
   output: "static",
   adapter: vercel(),
   integrations: [
     mdx(),
     sitemap(),
     sanity({
-      projectId: "your-project-id",
+      projectId: "jrbn2020",
       dataset: "production",
       studioBasePath: "/admin",
       useCdn: true,
-      apiVersion: "2024-02-20",
     }),
   ],
 });
