@@ -13,7 +13,7 @@ body {
   font-family: "JetBrains Mono", monospace;
   margin: 0;
   padding: 0;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 a {
@@ -27,6 +27,30 @@ a:hover {
 
 .prose {
   color: var(--text);
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+}
+
+.prose p {
+  margin: 1.5rem 0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--accent);
+  margin: 2rem 0 1rem 0;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.prose li {
+  margin: 0.5rem 0;
 }
 
 .terminal-container {

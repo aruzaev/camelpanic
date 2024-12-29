@@ -55,6 +55,18 @@ const postImageUrl = post.image
             <span class="date">Published: {new Date(post.publishedAt).toLocaleDateString()}</span>
           </div>
           <div class="content prose">
+            <style>
+              .content {
+                padding: 0 2rem;
+                line-height: 1.8;
+                max-width: 65ch;
+                margin: 0 auto;
+              }
+
+              .content p {
+                margin: 1.5rem 0;
+              }
+            </style>
             <h1>{post.title}</h1>
             {postImageUrl && (
               <img
