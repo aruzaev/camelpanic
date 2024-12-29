@@ -54,19 +54,13 @@ const postImageUrl = post.image
           <div class="metadata">
             <span class="date">Published: {new Date(post.publishedAt).toLocaleDateString()}</span>
           </div>
-          <div class="content prose">
-            <style>
-              .content {
-                padding: 0 2rem;
-                line-height: 1.8;
-                max-width: 65ch;
-                margin: 0 auto;
-              }
+          
+          <div class="command-line">
+            <span class="prompt">$</span>
+            <a href="/blog" class="command">cd ..</a>
+          </div>
 
-              .content p {
-                margin: 1.5rem 0;
-              }
-            </style>
+          <div class="content prose">
             <h1>{post.title}</h1>
             {postImageUrl && (
               <img
@@ -78,10 +72,6 @@ const postImageUrl = post.image
               />
             )}
             {Array.isArray(post.body) && <PortableText value={post.body} />}
-          </div>
-          <div class="command-line mt-8">
-            <span class="prompt">$</span>
-            <a href="/blog" class="command">cd ..</a>
           </div>
         </div>
       </div>
